@@ -1,6 +1,5 @@
 ---
 title: Community Hero
-emoji: 🦸
 colorFrom: indigo
 colorTo: green
 sdk: docker
@@ -12,7 +11,7 @@ short_description: AI civic issue solver powered by Google Gemini
 
 <div align="center">
 
-# 🦸 Community Hero — Hyperlocal Problem Solver
+#  Community Hero — Hyperlocal Problem Solver
 
 **AI-powered civic issue reporting, verification, tracking & resolution.**
 Built for **VIBE2SHIP · Coding Ninjas × Google for Developers** · Powered by **Google Gemini**
