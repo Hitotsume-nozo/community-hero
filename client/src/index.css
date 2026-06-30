@@ -1,0 +1,53 @@
+@import 'tailwindcss';
+@import 'leaflet/dist/leaflet.css';
+
+@theme {
+  --color-brand-50: #eef2ff;
+  --color-brand-100: #e0e7ff;
+  --color-brand-500: #6366f1;
+  --color-brand-600: #4f46e5;
+  --color-brand-700: #4338ca;
+  --color-ink: #0f172a;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: #f6f7fb;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* thin scrollbar */
+*::-webkit-scrollbar { width: 8px; height: 8px; }
+*::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 999px; }
+*::-webkit-scrollbar-track { background: transparent; }
+
+/* Leaflet marker pins (DivIcon) */
+.pin {
+  width: 30px; height: 30px; border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  display: grid; place-items: center;
+  box-shadow: 0 3px 8px rgba(0,0,0,.35);
+  border: 2px solid #fff;
+}
+.pin > span { transform: rotate(45deg); font-size: 14px; line-height: 1; }
+.pin.pulse::after {
+  content: ''; position: absolute; inset: -6px; border-radius: 50%;
+  border: 2px solid currentColor; opacity: .6; animation: ping 1.6s ease-out infinite;
+}
+@keyframes ping { 0%{transform:scale(.6);opacity:.7} 100%{transform:scale(1.8);opacity:0} }
+
+.leaflet-container { font-family: var(--font-sans); }
+.marker-cluster-small, .marker-cluster-medium, .marker-cluster-large { background: rgba(99,102,241,.25); }
+.marker-cluster-small div, .marker-cluster-medium div, .marker-cluster-large div {
+  background: #4f46e5; color: #fff; font-weight: 700;
+}
+
+/* utility */
+.glass { background: rgba(255,255,255,.85); backdrop-filter: blur(10px); }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.animate-in { animation: fadein .35s ease both; }
+@keyframes fadein { from { opacity:0; transform: translateY(6px);} to {opacity:1; transform:none;} }

@@ -1,0 +1,10 @@
+**/node_modules
+**/dist
+**/.env
+**/.env.local
+.git
+server/data/*.json
+*.md
+client/.vite
+npm-debug.log
+.DS_Store

@@ -1,0 +1,17 @@
+{
+  "name": "community-hero",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Community Hero — AI-powered hyperlocal civic issue solver (VIBE2SHIP × Google for Developers)",
+  "scripts": {
+    "postinstall": "npm --prefix server install && npm --prefix client install",
+    "dev": "concurrently -n server,client -c cyan,magenta \"npm:dev:server\" \"npm:dev:client\"",
+    "dev:server": "npm --prefix server run dev",
+    "dev:client": "npm --prefix client run dev",
+    "build": "npm --prefix client run build && npm --prefix server run build",
+    "start": "node server/dist/index.js"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
