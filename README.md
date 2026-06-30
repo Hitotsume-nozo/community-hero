@@ -1,3 +1,15 @@
+---
+title: Community Hero
+emoji: 🦸
+colorFrom: indigo
+colorTo: green
+sdk: docker
+app_port: 8080
+pinned: true
+license: mit
+short_description: AI civic issue solver powered by Google Gemini
+---
+
 <div align="center">
 
 # 🦸 Community Hero — Hyperlocal Problem Solver
@@ -65,9 +77,18 @@ Open **http://localhost:8080**. Enter any name to start as a citizen, or tap **"
 5. **Authority Console** → act on the AI-prioritised queue → mark *In Progress* → *Resolved* (citizen earns bonus points).
 6. **Civic Assistant** (✦ bottom-right) → "Which area has the most open issues?"
 
-## Deploy to a public link
+## Deploy to a public link (free, no credit card)
 
-See **[DEPLOY.md](./DEPLOY.md)** — `./deploy.sh` after a one-time `gcloud auth login`.
+**Recommended: Hugging Face Spaces (Docker)** — this repo is already configured for it
+(`sdk: docker`, `app_port: 8080`, `/tmp` storage). Create a free Docker Space, add
+`GEMINI_API_KEY` as a secret, then:
+
+```bash
+huggingface-cli login                          # paste a write token (one-time)
+HF_SPACE=<user>/community-hero ./deploy-hf.sh  # pushes; HF builds & hosts it
+```
+
+Full guide + **Render** (also free) and **Cloud Run** options in **[DEPLOY.md](./DEPLOY.md)**.
 
 ## Project layout
 

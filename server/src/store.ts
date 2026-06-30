@@ -4,8 +4,10 @@ import crypto from 'crypto';
 import { DB, Issue, User } from './types';
 import { buildSeed } from './seed';
 
-const DATA_DIR = path.join(__dirname, '..', 'data');
-const DB_FILE = path.join(DATA_DIR, 'db.json');
+// Writable data dir: honour DATA_DIR (set on hosts like HF Spaces / Cloud Run),
+// otherwise the local server/data folder, with an OS-tmp fallback if neither works.
+const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, '..', 'data');
+let DB_FILE = path.join(DATA_DIR, 'db.json');
 
 export const uid = (): string => crypto.randomUUID();
 export const now = (): string => new Date().toISOString();
@@ -13,8 +15,18 @@ export const now = (): string => new Date().toISOString();
 let db: DB = { issues: [], users: [] };
 let saveTimer: NodeJS.Timeout | null = null;
 
+let dataDir = DATA_DIR;
 function ensureDir() {
-  if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
+  try {
+    if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
+    fs.accessSync(dataDir, fs.constants.W_OK);
+  } catch {
+    // fall back to a guaranteed-writable tmp dir (e.g. read-only container FS)
+    dataDir = path.join(require('os').tmpdir(), 'community-hero');
+    fs.mkdirSync(dataDir, { recursive: true });
+    DB_FILE = path.join(dataDir, 'db.json');
+    console.warn('[store] data dir not writable, using', dataDir);
+  }
 }
 
 export function load(): void {

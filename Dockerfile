@@ -21,6 +21,8 @@ RUN npm run build
 FROM node:22-slim AS runtime
 ENV NODE_ENV=production
 ENV PORT=8080
+# Writable, host-agnostic data location (HF Spaces / Cloud Run friendly)
+ENV DATA_DIR=/tmp/community-hero
 WORKDIR /app
 
 # Only production server deps

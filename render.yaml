@@ -1,0 +1,17 @@
+# Render.com Blueprint — free Docker web service.
+# Use: Render dashboard → New → Blueprint → point at this repo → add the GEMINI_API_KEY secret.
+services:
+  - type: web
+    name: community-hero
+    runtime: docker
+    plan: free
+    region: singapore
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false            # set this in the dashboard (secret)
+      - key: GEMINI_MODEL
+        value: gemini-2.5-flash
+      - key: PORT
+        value: "8080"
